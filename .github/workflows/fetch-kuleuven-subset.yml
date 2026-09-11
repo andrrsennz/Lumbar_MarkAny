@@ -1,0 +1,149 @@
+name: Fetch KU Leuven lumbar ultrasound subset
+
+# WHY THIS EXISTS
+# ---------------
+# The KU Leuven Research Data Repository (doi:10.48804/3XPCAE, CC-BY-4.0, all
+# 766 files marked `restricted: false`) is unreachable at TCP level from the
+# authoring workstation: the entire 134.58.0.0/16 range, including both
+# rdr.kuleuven.be and the S3 host rdmo.icts.kuleuven.be, times out on ports 80
+# and 443. Every other research repository responds normally from that machine,
+# and proxied requests confirm the KU Leuven server is UP. It is an ISP/route
+# block on our side, not a restriction imposed by the data provider.
+#
+# A GitHub-hosted runner has unrestricted egress, so it is used purely as a
+# fetch host for public, openly licensed data. No authentication is bypassed:
+# these are anonymous GETs against a public API, and every file is verified
+# against the MD5 that Dataverse itself publishes.
+#
+# Actions minutes are free for public repositories, so this costs nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      group:
+        description: "Which part of the deposit to fetch"
+        required: true
+        default: "labels"
+        type: choice
+        options: [labels, recon, meta, labels_recon_meta, scans_subset]
+      subjects:
+        description: "Comma-separated subject IDs for scans_subset (e.g. URS08,URS16)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      chunks: ${{ steps.plan.outputs.chunks }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import csv, json, os
+          group = os.environ["GROUP"]
+          subjects = {s.strip() for s in os.environ.get("SUBJECTS","").split(",") if s.strip()}
+          rows = list(csv.DictReader(open("research/datasets/KULEUVEN_FILE_INVENTORY.csv", encoding="utf-8")))
+          for r in rows: r["bytes"] = int(r["bytes"] or 0)
+
+          def want(r):
+              d = r["directory_label"]; fn = r["filename"]
+              if group in ("labels","labels_recon_meta") and d == "US/US_labels": return True
+              if group in ("recon","labels_recon_meta") and d == "US/US_recon": return True
+              if group in ("meta","labels_recon_meta"):
+                  if d in ("","US") and (r["content_type"] != "application/zip"
+                                         or fn in ("US_calibration.zip","US_spatialtrackingvalidation.zip")):
+                      return True
+              if group == "scans_subset" and d.startswith("US/URS"):
+                  return (not subjects) or d.split("/")[1] in subjects
+              return False
+
+          sel = [r for r in rows if want(r)]
+          sel.sort(key=lambda r: (r["directory_label"], r["filename"]))
+
+          # Pack into chunks of at most ~700 MB so each artifact stays easy to
+          # move and a single failure does not lose the whole run.
+          LIMIT = 700_000_000
+          chunks, cur, cur_sz = [], [], 0
+          for r in sel:
+              if cur and cur_sz + r["bytes"] > LIMIT:
+                  chunks.append(cur); cur, cur_sz = [], 0
+              cur.append(r); cur_sz += r["bytes"]
+          if cur: chunks.append(cur)
+
+          out = [{"name": f"kuleuven-{group}-{i+1:02d}",
+                  "ids": ",".join(c["file_id"] for c in c_list),
+                  "paths": ";".join(f'{c["directory_label"]}/{c["filename"]}' for c in c_list),
+                  "md5s": ";".join(c["md5"] for c in c_list)}
+                 for i, c_list in enumerate(chunks)]
+          print("chunks=" + json.dumps(out))
+          PY
+        env:
+          GROUP: ${{ inputs.group }}
+          SUBJECTS: ${{ inputs.subjects }}
+
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        chunk: ${{ fromJson(needs.plan.outputs.chunks) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and verify
+        shell: bash
+        run: |
+          set -u
+          mkdir -p out
+          IFS=',' read -ra IDS  <<< "${{ matrix.chunk.ids }}"
+          IFS=';' read -ra PTHS <<< "${{ matrix.chunk.paths }}"
+          IFS=';' read -ra MD5S <<< "${{ matrix.chunk.md5s }}"
+          fail=0
+          for i in "${!IDS[@]}"; do
+            id="${IDS[$i]}"; rel="${PTHS[$i]}"; want="${MD5S[$i]}"
+            mkdir -p "out/$(dirname "$rel")"
+            echo "::group::$rel (id=$id)"
+            for attempt in 1 2 3 4; do
+              curl -sSL --retry 5 --retry-delay 5 --retry-all-errors \
+                   --connect-timeout 30 --max-time 3600 \
+                   -o "out/$rel" \
+                   "https://rdr.kuleuven.be/api/access/datafile/${id}" && break
+              echo "attempt $attempt failed; retrying"; sleep $((10*attempt))
+            done
+            got=$(md5sum "out/$rel" | cut -d' ' -f1)
+            sz=$(stat -c%s "out/$rel")
+            if [ "$got" = "$want" ]; then
+              echo "OK   $rel  $sz bytes  md5 $got"
+            else
+              echo "FAIL $rel  $sz bytes  md5 $got != $want"; fail=1
+            fi
+            echo "::endgroup::"
+          done
+          find out -type f -printf '%s\t%p\n' | sort -n | tail -30
+          du -sh out
+          exit $fail
+
+      - name: Manifest
+        if: always()
+        shell: bash
+        run: |
+          cd out && find . -type f -exec md5sum {} \; | sort -k2 > ../MANIFEST_${{ matrix.chunk.name }}.txt
+          cat ../MANIFEST_${{ matrix.chunk.name }}.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.chunk.name }}
+          path: |
+            out/**
+            MANIFEST_${{ matrix.chunk.name }}.txt
+          retention-days: 7
+          compression-level: 0   # payload is already-compressed zip archives
+          if-no-files-found: error
