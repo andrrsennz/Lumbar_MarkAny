@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SYNTHETIC TEST FIXTURE. Not clinical data, not a real annotation.
+     Exists solely to exercise annotation/converters/cvat_to_records.py. -->
+<annotations>
+  <version>1.1</version>
+  <meta><task><name>lumbar_pilot_demo</name></task></meta>
+  <image id="0" name="demo_frame_0001.png" width="960" height="720">
+    <tag label="FRAME_METADATA">
+      <attribute name="view">parasagittal_oblique</attribute>
+      <attribute name="procedural_usability">usable</attribute>
+      <attribute name="bone_visibility">clear</attribute>
+      <attribute name="posterior_complex_visibility">partial</attribute>
+      <attribute name="acoustic_window_quality">4</attribute>
+      <attribute name="shadow_severity">mild</attribute>
+      <attribute name="artifact_severity">none</attribute>
+      <attribute name="presumed_level">L3-L4</attribute>
+      <attribute name="annotator_confidence">4</attribute>
+    </tag>
+    <polygon label="lamina" points="120,300;180,310;240,300">
+      <attribute name="visibility">clearly_visible</attribute>
+      <attribute name="side">left</attribute>
+      <attribute name="annotator_confidence">4</attribute>
+    </polygon>
+    <polyline label="posterior_complex" points="130,360;200,364;260,358">
+      <attribute name="visibility">partially_visible</attribute>
+      <attribute name="annotator_confidence">3</attribute>
+    </polyline>
+    <polygon label="PLANNING_preferred_access_window" points="150,330;230,330;230,380;150,380">
+      <attribute name="physician_confidence">4</attribute>
+      <attribute name="chosen_level">L3-L4</attribute>
+      <attribute name="reasoning">widest interlaminar window on this sweep</attribute>
+    </polygon>
+    <points label="PLANNING_entry_point" points="190,332">
+      <attribute name="physician_confidence">3</attribute>
+    </points>
+  </image>
+  <image id="1" name="demo_frame_0002.png" width="960" height="720">
+    <tag label="FRAME_METADATA">
+      <attribute name="view">off_axis_uninterpretable</attribute>
+      <attribute name="procedural_usability">unusable</attribute>
+      <attribute name="bone_visibility">absent</attribute>
+      <attribute name="acoustic_window_quality">1</attribute>
+      <attribute name="annotator_confidence">5</attribute>
+    </tag>
+    <tag label="PLANNING_NO_SAFE_RECOMMENDATION">
+      <attribute name="reason">image_quality_insufficient</attribute>
+      <attribute name="comment">probe off midline, no bone echo</attribute>
+    </tag>
+  </image>
+</annotations>
