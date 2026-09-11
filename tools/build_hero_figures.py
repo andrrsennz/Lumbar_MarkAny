@@ -50,6 +50,17 @@ def font(sz, bold=False):
     return ImageFont.load_default()
 
 
+def outline(m, k=2):
+    """Boundary of a mask, so it can be drawn ON TOP of a filled overlay and
+    remain visible where the two agree."""
+    d = dil(m, k)
+    e = m.copy()
+    for _ in range(1):
+        p = np.pad(e, 1, constant_values=False)
+        e = (p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:] & e)
+    return d & ~e
+
+
 def dil(m, k=1):
     out = m.copy()
     for _ in range(k):
@@ -191,8 +202,18 @@ def figure1(preds):
     ga, ma = load(a_r["uid"])
     gd, md = load(d_r["uid"])
 
-    best = sorted([p for p in preds if p["modality"] == "HUS"], key=lambda r: -r["dice"])
-    worst = sorted(preds, key=lambda r: r["dice"])
+    # Panel (c): the best agreement among frames that actually have a
+    # substantial annotation. Picking on Dice alone selects a tiny edge
+    # annotation that scores well but shows the reader nothing.
+    for r in preds:
+        r["gt_px"] = int(r["gt_px"]); r["pred_px"] = int(r["pred_px"])
+    big = [r for r in preds if r["gt_px"] >= 250]
+    best = sorted([r for r in (big or preds) if r["modality"] == "HUS"],
+                  key=lambda r: -r["dice"]) or sorted(big or preds, key=lambda r: -r["dice"])
+    # Panel (e): an informative failure -- the model predicted something and got
+    # it wrong. A null prediction renders as an empty panel and teaches nothing.
+    informative = [r for r in preds if r["pred_px"] > 200 and r["gt_px"] > 200]
+    worst = sorted(informative or preds, key=lambda r: r["dice"])
     ca = focus_crop(ga, [ma])
     cd = focus_crop(gd, [md])
     panels = [
@@ -208,19 +229,37 @@ def figure1(preds):
         if pv.exists():
             pm = np.array(Image.open(pv).convert("RGB"))
             pmask = (pm[..., 1].astype(int) - pm[..., 0].astype(int)) > 60
-            pmask = pmask[:g.shape[0], :g.shape[1]]
-            panels.append(panel(g, [(dil(m, 1), GT_C), (dil(pmask, 1), PR_C)],
+            # Predictions are rendered at TRAINING resolution; the ground truth
+            # here is native sector resolution. Upsample the prediction rather
+            # than downsampling the frame, so the panel shows full-resolution
+            # anatomy. This is display only.
+            if pmask.shape != g.shape:
+                pmask = np.array(Image.fromarray(pmask.astype(np.uint8) * 255)
+                                 .resize((g.shape[1], g.shape[0]), Image.NEAREST)) > 127
+            # Prediction filled, expert outlined ON TOP: where they agree the
+            # green fill shows through a red outline, so overlap is legible
+            # rather than one mask simply hiding the other.
+            panels.append(panel(g, [(dil(pmask, 1), PR_C), (outline(m, 2), GT_C)],
                                 "(c) OUR PREDICTION (held-out subject)",
-                                f"red = expert, green = ours · Dice {best[0]['dice']:.3f}",
+                                f"green = ours, red outline = expert · Dice {best[0]['dice']:.3f}",
                                 crop=focus_crop(g, [m, pmask])))
     panels.append(panel(gd, [(dil(md, 1), GT_C)], "(d) ROBOT-ASSISTED ultrasound",
                         f"same expert annotation · {d_r['subject']}", crop=cd))
     if worst:
         u = worst[0]["uid"]
         g, m = load(u)
-        panels.append(panel(g, [(dil(m, 1), GT_C)], "(e) FAILURE / high uncertainty",
-                            f"Dice {worst[0]['dice']:.3f} · {worst[0]['subject']} {worst[0]['modality']}",
-                            crop=focus_crop(g, [m])))
+        pw = VIS / "predictions" / f"{u}.png"
+        wmask = None
+        if pw.exists():
+            wm = np.array(Image.open(pw).convert("RGB"))
+            wmask = (wm[..., 1].astype(int) - wm[..., 0].astype(int)) > 60
+            if wmask.shape != g.shape:
+                wmask = np.array(Image.fromarray(wmask.astype(np.uint8) * 255)
+                                 .resize((g.shape[1], g.shape[0]), Image.NEAREST)) > 127
+        ovl = ([(dil(wmask, 1), PR_C)] if wmask is not None else []) + [(outline(m, 2), GT_C)]
+        panels.append(panel(g, ovl, "(e) FAILURE case",
+                            f"green = ours, red = expert · Dice {worst[0]['dice']:.3f} · {worst[0]['subject']}",
+                            crop=focus_crop(g, [m] + ([wmask] if wmask is not None else []))))
 
     row = hcat(panels)
     conc = concept_panel(300, row.shape[0])

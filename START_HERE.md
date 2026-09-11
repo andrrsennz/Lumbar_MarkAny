@@ -24,17 +24,22 @@ The V2 evidence vault for **Lumbar_MarkAny** — AI-assisted, robot-acquired lum
 
 | train ↓ / test → | HUS | RUS |
 |---|---|---|
-| **HUS** | 0.581 | 0.568 |
-| **RUS** | — | — |
-| **BOTH** | — | — |
+| **HUS** | 0.498 | 0.490 |
+| **RUS** | 0.562 | 0.560 |
+| **BOTH** | 0.577 | 0.572 |
 
 Tolerance-band F1 (2 px), the fairer metric for a 1–2 px contour:
 
 | train ↓ / test → | HUS | RUS |
 |---|---|---|
-| **HUS** | 0.784 | 0.759 |
-| **RUS** | — | — |
-| **BOTH** | — | — |
+| **HUS** | 0.695 | 0.679 |
+| **RUS** | 0.755 | 0.753 |
+| **BOTH** | 0.767 | 0.760 |
+
+### Can the model tell when it is wrong? (real human lumbar data)
+
+- Spearman ρ, uncertainty vs error: **-0.228** (entropy), **-0.280** (pass disagreement)
+- Declining the most-uncertain 30% raises retained Dice to **0.588** (declined frames: 0.542)
 
 ---
 

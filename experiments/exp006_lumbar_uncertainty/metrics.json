@@ -1,0 +1,104 @@
+{
+  "regime": "BOTH",
+  "mc_passes": 10,
+  "n_frames_scored": 6182,
+  "n_annotated": 5998,
+  "n_empty_label": 184,
+  "spearman_entropy_vs_dice": -0.22760578243699253,
+  "spearman_pass_sd_vs_dice": -0.27966233269363816,
+  "mean_dice": 0.5742636371739746,
+  "abstention": {
+    "5%": {
+      "n_declined": 299,
+      "dice_on_retained": 0.5773228068954983,
+      "dice_on_declined": 0.5159552484015187,
+      "improvement": 0.003059169721523758
+    },
+    "10%": {
+      "n_declined": 599,
+      "dice_on_retained": 0.5801853084249982,
+      "dice_on_declined": 0.5208895084856993,
+      "improvement": 0.005921671251023608
+    },
+    "20%": {
+      "n_declined": 1199,
+      "dice_on_retained": 0.5853785635405506,
+      "dice_on_declined": 0.5297761212163444,
+      "improvement": 0.011114926366576072
+    },
+    "30%": {
+      "n_declined": 1799,
+      "dice_on_retained": 0.5880182055972455,
+      "dice_on_declined": 0.542159449953677,
+      "improvement": 0.013754568423270941
+    }
+  },
+  "per_subject": {
+    "URS08": {
+      "n": 607,
+      "spearman_entropy_vs_dice": -0.21014299903934727,
+      "mean_dice": 0.6218295595351572
+    },
+    "URS16": {
+      "n": 628,
+      "spearman_entropy_vs_dice": -0.22861392570134265,
+      "mean_dice": 0.6165250809741253
+    },
+    "URS26": {
+      "n": 650,
+      "spearman_entropy_vs_dice": -0.1609778521096181,
+      "mean_dice": 0.5615045959283421
+    },
+    "URS31": {
+      "n": 636,
+      "spearman_entropy_vs_dice": -0.4013513239312845,
+      "mean_dice": 0.6073067943715686
+    },
+    "URS36": {
+      "n": 690,
+      "spearman_entropy_vs_dice": -0.22243775203129565,
+      "mean_dice": 0.5562961343709881
+    },
+    "URS40": {
+      "n": 677,
+      "spearman_entropy_vs_dice": -0.06725085157644611,
+      "mean_dice": 0.5490969051025927
+    },
+    "URS45": {
+      "n": 776,
+      "spearman_entropy_vs_dice": -0.2606448274489512,
+      "mean_dice": 0.5379584756502387
+    },
+    "URS51": {
+      "n": 624,
+      "spearman_entropy_vs_dice": -0.3514349919743178,
+      "mean_dice": 0.5981249394857011
+    },
+    "URS54": {
+      "n": 710,
+      "spearman_entropy_vs_dice": -0.11946498101521473,
+      "mean_dice": 0.5384665026648847
+    }
+  },
+  "per_modality": {
+    "HUS": {
+      "n": 2322,
+      "spearman_entropy_vs_dice": -0.21901045619491577,
+      "mean_dice": 0.5710142902754629,
+      "mean_entropy": 0.324904303115365
+    },
+    "RUS": {
+      "n": 3676,
+      "spearman_entropy_vs_dice": -0.24279508558655452,
+      "mean_dice": 0.5763161354052977,
+      "mean_entropy": 0.3283598977703524
+    }
+  },
+  "empty_label_behaviour": {
+    "n": 184,
+    "frac_predicting_something": 0.782608695652174,
+    "mean_entropy": 0.32470774861133617,
+    "mean_entropy_on_annotated": 0.3270221367185217
+  },
+  "caveat": "Real human transcutaneous lumbar ultrasound, subject-held-out. Validates that uncertainty tracks error for BONE-SURFACE perception. It is not a safety claim, the model is not calibrated for clinical use, and it says nothing about puncture targeting."
+}

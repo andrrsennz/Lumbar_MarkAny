@@ -1,0 +1,247 @@
+{
+  "status": "PHASE COMPLETE",
+  "n_checks": 30,
+  "n_failed": 0,
+  "checks": [
+    {
+      "name": "processed ultrasound frames",
+      "passed": true,
+      "found": 6182,
+      "required_minimum": 5000,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "processed expert masks",
+      "passed": true,
+      "found": 6182,
+      "required_minimum": 5000,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "frames and masks paired",
+      "passed": true,
+      "found": "6182/6182",
+      "required_minimum": "equal",
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "distinct human subjects",
+      "passed": true,
+      "found": 9,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "acquisition modalities (HUS+RUS)",
+      "passed": true,
+      "found": 2,
+      "required_minimum": 2,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "frames with non-empty expert annotation",
+      "passed": true,
+      "found": 5998,
+      "required_minimum": 3000,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/raw",
+      "passed": true,
+      "found": 80,
+      "required_minimum": 20,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/expert_labels",
+      "passed": true,
+      "found": 80,
+      "required_minimum": 20,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/expert_overlays",
+      "passed": true,
+      "found": 80,
+      "required_minimum": 20,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/side_by_side",
+      "passed": true,
+      "found": 80,
+      "required_minimum": 20,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/hus",
+      "passed": true,
+      "found": 31,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/rus",
+      "passed": true,
+      "found": 49,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/difficult_cases",
+      "passed": true,
+      "found": 8,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/predictions (our model)",
+      "passed": true,
+      "found": 21,
+      "required_minimum": 10,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/prediction_overlays",
+      "passed": true,
+      "found": 21,
+      "required_minimum": 10,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/failures",
+      "passed": true,
+      "found": 9,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "visuals/uncertainty",
+      "passed": true,
+      "found": 21,
+      "required_minimum": 5,
+      "detail": "",
+      "required": false
+    },
+    {
+      "name": "contact sheets",
+      "passed": true,
+      "found": 4,
+      "required_minimum": 3,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "publication candidates",
+      "passed": true,
+      "found": 2,
+      "required_minimum": 2,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "sampled assets that are non-blank",
+      "passed": true,
+      "found": "50/50",
+      "required_minimum": "all",
+      "detail": "0 blank",
+      "required": true
+    },
+    {
+      "name": "overlays differ from their raw frame",
+      "passed": true,
+      "found": 8,
+      "required_minimum": 8,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "provenance rows",
+      "passed": true,
+      "found": 341,
+      "required_minimum": 20,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "evidence_type recorded (A/B/C)",
+      "passed": true,
+      "found": "A,B,D",
+      "required_minimum": "A|B|C",
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "licence recorded for every asset",
+      "passed": true,
+      "found": 1,
+      "required_minimum": "non-empty",
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "PIXEL_LICENSE_LEDGER.csv",
+      "passed": true,
+      "found": "-",
+      "required_minimum": "present",
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "exp005 result records",
+      "passed": true,
+      "found": 18,
+      "required_minimum": 6,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "subjects appearing in held-out tests",
+      "passed": true,
+      "found": 9,
+      "required_minimum": 5,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "both modalities evaluated",
+      "passed": true,
+      "found": "HUS,RUS",
+      "required_minimum": 2,
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "every record carries a subject-level metric",
+      "passed": true,
+      "found": 18,
+      "required_minimum": "all",
+      "detail": "",
+      "required": true
+    },
+    {
+      "name": "exp006 uncertainty on human lumbar data",
+      "passed": true,
+      "found": "-",
+      "required_minimum": "present",
+      "detail": "",
+      "required": false
+    }
+  ]
+}

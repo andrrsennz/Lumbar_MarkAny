@@ -5,8 +5,8 @@
 - **Best raw + expert annotation (side by side)** — `visuals/ultrasound/real_human_lumbar/side_by_side/URS08_H1_f0237.png`
 - **Expert overlay, handheld** — `visuals/ultrasound/real_human_lumbar/hus/URS08_H1_f0237.png`
 - **Expert overlay, robot-assisted** — `visuals/ultrasound/real_human_lumbar/rus/URS08_R2_f0050.png`
-- **Our prediction vs expert, held-out subject** — _not generated_
-- **Failure / high uncertainty** — _not generated_
+- **Our prediction vs expert, held-out subject** — `visuals/ultrasound/real_human_lumbar/prediction_overlays/URS08_H1_f0049.png`
+- **Failure / high uncertainty** — `visuals/ultrasound/real_human_lumbar/failures/URS08_R2_f0031_dice0.000.png`
 - **Difficult cases and expert-left-empty frames** — `visuals/ultrasound/real_human_lumbar/difficult_cases/URS08_H1_f0292_expert_left_empty.png`
 - **Contact sheet** — `visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_DIFFICULT.png`
 - **Contact sheet** — `visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_HUS_GT.png`
@@ -25,10 +25,10 @@
 | `visuals/ultrasound/real_human_lumbar/side_by_side` | 80 |
 | `visuals/ultrasound/real_human_lumbar/hus` | 31 |
 | `visuals/ultrasound/real_human_lumbar/rus` | 49 |
-| `visuals/ultrasound/real_human_lumbar/predictions` | 0 |
-| `visuals/ultrasound/real_human_lumbar/prediction_overlays` | 0 |
-| `visuals/ultrasound/real_human_lumbar/uncertainty` | 0 |
-| `visuals/ultrasound/real_human_lumbar/failures` | 0 |
+| `visuals/ultrasound/real_human_lumbar/predictions` | 21 |
+| `visuals/ultrasound/real_human_lumbar/prediction_overlays` | 21 |
+| `visuals/ultrasound/real_human_lumbar/uncertainty` | 21 |
+| `visuals/ultrasound/real_human_lumbar/failures` | 9 |
 | `visuals/ultrasound/real_human_lumbar/difficult_cases` | 8 |
 | `visuals/ultrasound/real_human_lumbar/contact_sheets` | 4 |
 | `visuals/ultrasound/real_human_lumbar/publication_candidates` | 1 |

@@ -18,6 +18,8 @@ Each of these is safe to paste into the paper as written. The paired forbidden l
 
 ## About our results
 
+> Training on both acquisition modes and evaluating on held-out subjects, subject-mean Dice was 0.577 on handheld and 0.572 on robot-assisted ultrasound, under subject-disjoint 3-fold cross-validation over nine subjects.
+
 > All splits were subject-disjoint; statistics were aggregated per subject before averaging, and frame counts are reported but never treated as independent samples.
 
 > Because the annotated structure is a 1-2 pixel contour, a tolerance-band F1 is reported alongside Dice, which penalises a one-pixel offset as a total miss.

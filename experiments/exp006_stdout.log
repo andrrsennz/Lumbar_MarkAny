@@ -1,0 +1,50 @@
+fold 0: 1979 held-out frames from ['URS08', 'URS16', 'URS31'] (dropout layers active: 1)
+fold 1: 2040 held-out frames from ['URS26', 'URS36', 'URS51'] (dropout layers active: 1)
+fold 2: 2163 held-out frames from ['URS40', 'URS45', 'URS54'] (dropout layers active: 1)
+{
+ "n_annotated": 5998,
+ "mean_dice": 0.5742636371739746,
+ "spearman_entropy_vs_dice": -0.22760578243699253,
+ "spearman_pass_sd_vs_dice": -0.27966233269363816
+}
+abstention: {
+ "5%": {
+  "n_declined": 299,
+  "dice_on_retained": 0.5773228068954983,
+  "dice_on_declined": 0.5159552484015187,
+  "improvement": 0.003059169721523758
+ },
+ "10%": {
+  "n_declined": 599,
+  "dice_on_retained": 0.5801853084249982,
+  "dice_on_declined": 0.5208895084856993,
+  "improvement": 0.005921671251023608
+ },
+ "20%": {
+  "n_declined": 1199,
+  "dice_on_retained": 0.5853785635405506,
+  "dice_on_declined": 0.5297761212163444,
+  "improvement": 0.011114926366576072
+ },
+ "30%": {
+  "n_declined": 1799,
+  "dice_on_retained": 0.5880182055972455,
+  "dice_on_declined": 0.542159449953677,
+  "improvement": 0.013754568423270941
+ }
+}
+per modality: {
+ "HUS": {
+  "n": 2322,
+  "spearman_entropy_vs_dice": -0.21901045619491577,
+  "mean_dice": 0.5710142902754629,
+  "mean_entropy": 0.324904303115365
+ },
+ "RUS": {
+  "n": 3676,
+  "spearman_entropy_vs_dice": -0.24279508558655452,
+  "mean_dice": 0.5763161354052977,
+  "mean_entropy": 0.3283598977703524
+ }
+}
+wrote experiments\exp006_lumbar_uncertainty\metrics.json
