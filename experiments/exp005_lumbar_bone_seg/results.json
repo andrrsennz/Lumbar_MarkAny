@@ -111,5 +111,118 @@
       "loss": 0.7177593972947862,
       "sec": 52.1
     }
+  },
+  {
+    "tag": "fold0_trainRUS_testHUS",
+    "n_subjects": 2,
+    "n_frames_annotated": 593,
+    "n_frames_empty_label": 39,
+    "per_subject": [
+      {
+        "subject": "URS08",
+        "n_frames": 291,
+        "dice": 0.635912427351352,
+        "iou": 0.4740697543949053,
+        "tol_f1": 0.8286974829418968
+      },
+      {
+        "subject": "URS16",
+        "n_frames": 302,
+        "dice": 0.5840997880492064,
+        "iou": 0.43987926582795145,
+        "tol_f1": 0.7595379193512591
+      }
+    ],
+    "subject_mean_dice": 0.6100061077002792,
+    "subject_sd_dice": 0.025906319651072818,
+    "subject_median_dice": 0.6100061077002792,
+    "subject_min_dice": 0.5840997880492064,
+    "subject_max_dice": 0.635912427351352,
+    "subject_mean_iou": 0.45697451011142837,
+    "subject_mean_tol_f1": 0.794117701146578,
+    "frame_mean_dice": 0.6095255520237838,
+    "empty_label_false_positive_rate": 0.717948717948718,
+    "fold": 0,
+    "train_regime": "RUS",
+    "test_modality": "HUS",
+    "train_subjects": [
+      "URS26",
+      "URS36",
+      "URS40",
+      "URS45",
+      "URS51",
+      "URS54"
+    ],
+    "test_subjects": [
+      "URS08",
+      "URS16",
+      "URS31"
+    ],
+    "n_train_frames": 2453,
+    "train_history": {
+      "epoch": 12,
+      "loss": 0.6757711525026121,
+      "sec": 79.8
+    }
+  },
+  {
+    "tag": "fold0_trainRUS_testRUS",
+    "n_subjects": 3,
+    "n_frames_annotated": 1278,
+    "n_frames_empty_label": 69,
+    "per_subject": [
+      {
+        "subject": "URS08",
+        "n_frames": 316,
+        "dice": 0.5642257259613248,
+        "iou": 0.41957559970290975,
+        "tol_f1": 0.7279081231523825
+      },
+      {
+        "subject": "URS16",
+        "n_frames": 326,
+        "dice": 0.6436426716711976,
+        "iou": 0.4890376589011798,
+        "tol_f1": 0.8296627449393491
+      },
+      {
+        "subject": "URS31",
+        "n_frames": 636,
+        "dice": 0.5836379927615755,
+        "iou": 0.4337674761862626,
+        "tol_f1": 0.7613927252110458
+      }
+    ],
+    "subject_mean_dice": 0.5971687967980327,
+    "subject_sd_dice": 0.03380409057965199,
+    "subject_median_dice": 0.5836379927615755,
+    "subject_min_dice": 0.5642257259613248,
+    "subject_max_dice": 0.6436426716711976,
+    "subject_mean_iou": 0.44746024493011743,
+    "subject_mean_tol_f1": 0.772987864434259,
+    "frame_mean_dice": 0.5941444473904155,
+    "empty_label_false_positive_rate": 0.7536231884057971,
+    "fold": 0,
+    "train_regime": "RUS",
+    "test_modality": "RUS",
+    "train_subjects": [
+      "URS26",
+      "URS36",
+      "URS40",
+      "URS45",
+      "URS51",
+      "URS54"
+    ],
+    "test_subjects": [
+      "URS08",
+      "URS16",
+      "URS31"
+    ],
+    "n_train_frames": 2453,
+    "train_history": {
+      "epoch": 12,
+      "loss": 0.6757711525026121,
+      "sec": 79.8
+    }
   }
 ]

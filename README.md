@@ -9,20 +9,29 @@ measured with it, and precisely what is missing that only a clinical partner can
 supply.
 
 > **Scope warning.** Nothing here is a medical device, and nothing here has been
-> clinically validated. No experiment in this repository was run on human lumbar
-> ultrasound. Claims are labelled by evidence level throughout; see
-> `CLAIMS_LEDGER.csv`.
+> clinically validated. Experiments now DO run on real human lumbar ultrasound
+> (V2), but that data is healthy volunteers imaged **prone** with a **10 MHz
+> linear** probe, annotated for **visible bone surface only** — not the
+> population, position, probe or label set of a lumbar puncture. Claims are
+> labelled by evidence level and evidence class throughout; see
+> `CLAIMS_LEDGER.csv` and `deliverables/paper_v2_assets/paper_claims_forbidden.md`.
 
 ---
 
-## The short version
+## The short version — V2
 
 | | |
 |---|---|
-| **What we set out to do** | Train and evaluate lumbar bone-surface segmentation on the KU Leuven paired handheld/robotic lumbar ultrasound dataset (`doi:10.48804/3XPCAE`). |
-| **What blocked it** | The entire `kuleuven.be` domain is unreachable at TCP level from this network, while every other research repository responds normally. The dataset is also 1.01 TB. See [`research/datasets/KULEUVEN_ACCESS_BLOCKER.md`](research/datasets/KULEUVEN_ACCESS_BLOCKER.md). |
-| **What we did instead** | Verified the anchor dataset exhaustively from its open-access full text; surveyed 891 candidate datasets across six repositories; acquired and verified 1.45 GB of the spinal ultrasound data that *is* reachable; and built + measured the complete analysis pipeline on it. |
-| **Headline survey finding** | Outside the KU Leuven deposit, **no public, annotated, real human transcutaneous lumbar ultrasound dataset was found**, and **no public dataset anywhere records a procedural target** — entry point, trajectory, depth or outcome. |
+| **What V1 concluded** | That the anchor lumbar dataset was unreachable, and that no public real human transcutaneous lumbar ultrasound could be obtained. |
+| **What was actually true** | The dataset is **public, CC-BY-4.0, and obtainable**. Only this workstation's network route was blocked (the whole 134.58.0.0/16 range, including the S3 host). A proxied request returned `{"status":"OK","version":"6.7.1"}` — the server was up the entire time. |
+| **What V2 holds** | **6,182 expert-annotated real human lumbar ultrasound frames from 9 subjects**, handheld and robot-assisted, all MD5-verified. The annotated subset needed **1.70 GB**, not the deposit's 631 GB, because each label archive ships the frames alongside the labels. |
+| **What is still missing — and now provably so** | **No procedural label exists in any public dataset.** The KU Leuven labels are `{0 or 1, 2}`: background and **visible bone surface**. No entry point, trajectory, target depth, interspace choice or outcome. |
+
+Full correction, including retracted and superseded claims:
+[`research/datasets/V2_ACCESS_CORRECTION.md`](research/datasets/V2_ACCESS_CORRECTION.md).
+
+> **Start with [`START_HERE.md`](START_HERE.md) and `00_VISUAL_INDEX.html`.**
+> Real ultrasound is on the first screen.
 
 ---
 
@@ -39,6 +48,12 @@ Used consistently across every document in this repository.
 | **E5** | Engineering inference drawn from the above |
 | **E6** | Future proposal — not implemented, not validated |
 
+**V2 adds an evidence class.** Experiments are now marked **PRIMARY** (real
+human lumbar) or **SECONDARY** (porcine intraoperative). exp001–exp004 are
+secondary: verified from their `config.json`, they all read the Johns Hopkins
+porcine post-laminectomy dataset. They remain methodologically sound and are
+retained, but they are not evidence for a human lumbar-puncture product.
+
 ---
 
 ## What was actually executed (E1)
@@ -49,6 +64,17 @@ Used consistently across every document in this repository.
 | [`exp002_class_distribution`](experiments/exp002_class_distribution/) | Do the distributed masks contain what the publication claims? | **Yes, exactly.** All 10 classes reproduced to the pixel (only 13 stray anti-aliased pixels differ across 1.9 billion). Also recovered the **undocumented** palette→class mapping, now published in `src/lumbar_markany/data_jhu.py`. |
 | [`exp003_unet_baseline`](experiments/exp003_unet_baseline/) | Baseline 10-class segmentation on the official split. | Test macro Dice **0.7232** (95% bootstrap CI 0.7142–0.7321, n=660). Per class from 0.947 (Spinal cord) to 0.249 (Dura/Pia complex) — independently reproducing the source paper's qualitative finding that the rare complex classes fail worst. |
 | [`exp004_uncertainty_failure`](experiments/exp004_uncertainty_failure/) | Can the model tell when it is wrong? | **Yes, measurably.** MC-dropout uncertainty correlates with real error at Spearman **ρ = −0.731** (entropy) and **−0.763** (pass disagreement). Declining the most-uncertain 30% raises retained Dice to 0.764. Failures concentrate in **dark, low-contrast** images (Dice vs contrast ρ = +0.542). |
+
+### V2 — direct human lumbar (PRIMARY evidence)
+
+| Experiment | Question |
+|---|---|
+| `exp005_lumbar_bone_seg` | Expert bone-surface segmentation on real human lumbar ultrasound, subject-disjoint 3-fold CV, with the full handheld/robot-assisted cross-domain matrix. |
+| `exp006_lumbar_uncertainty` | Does uncertainty track error on **real human lumbar** data? (exp004 asked this on porcine data and cannot carry a human claim.) |
+
+Numbers: `RESULTS_LEDGER.csv` and `experiments/exp005_lumbar_bone_seg/results.json`.
+
+### V1 — porcine (SECONDARY evidence)
 
 **These results are about porcine intraoperative spinal cord imaging, not lumbar
 puncture.** They validate the pipeline; they say nothing about human neuraxial
@@ -122,13 +148,24 @@ small derived tables only.
 
 ## Status and honest limitations
 
-* The single most scientifically valuable experiment this project proposed —
-  handheld vs robot-assisted cross-domain generalisation — **has not been run**,
-  because the data could not be reached. It remains the recommended first
-  experiment; see `deliverables/paper/PAPER_RECOMMENDATION.md`.
-* All quantitative results are from a porcine, intraoperative, post-laminectomy
-  dataset with **no animal identifier**, so animal-level generalisation cannot
-  be assessed.
+* **Nine annotated subjects.** Every human-lumbar number rests on nine people.
+  Statistics are aggregated per subject and the spread across subjects is
+  reported, because with nine points a confidence interval would imply more
+  precision than the data supports.
+* **Wrong population, position and probe.** Healthy volunteers aged 20–35, BMI
+  19–26, imaged **prone** with a **10 MHz linear** transducer. Lumbar puncture
+  is performed sitting or in lateral decubitus with a 2–5 MHz curvilinear probe,
+  in patients selected for difficulty. This gap is one of *kind*, not quantity,
+  and no amount of public data closes it.
+* **A single annotator**, who also acquired the handheld scans. Inter-rater
+  reliability for lumbar ultrasound annotation is unmeasured — by us and, as far
+  as this survey found, by anyone.
+* **Bone surface only.** The task we can measure is anatomy perception. The
+  clinical decision layer has no ground truth anywhere.
+* **Any HUS/RUS difference is confounded by construction** — protocol, depth,
+  gain and operator all vary alongside the acquisition mode.
+* exp001–exp004 remain porcine, intraoperative, with **no animal identifier**,
+  so animal-level generalisation was never assessable there.
 * The dataset survey covers repositories with public search APIs. Datasets
   published only on a lab webpage are largely invisible to it — the JHU dataset
   was found via its *paper*, not via any repository index.

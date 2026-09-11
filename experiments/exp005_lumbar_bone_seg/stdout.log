@@ -27,3 +27,7 @@
       ep  9/12 loss 0.6834 (79s)
       ep 10/12 loss 0.6791 (75s)
       ep 11/12 loss 0.6767 (77s)
+      ep 12/12 loss 0.6758 (80s)
+      -> test HUS: subject-mean Dice 0.6100 tolF1 0.7941 (n_subj=2, n_frames=593)
+      -> test RUS: subject-mean Dice 0.5972 tolF1 0.7730 (n_subj=3, n_frames=1278)
+   regime BOTH: 4203 training frames from 6 subjects
