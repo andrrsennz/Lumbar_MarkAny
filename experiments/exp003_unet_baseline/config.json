@@ -1,0 +1,32 @@
+{
+  "root": "data/extracted/jhu_segmentation/SegmentationDataset",
+  "out": "experiments/exp003_unet_baseline",
+  "epochs": 30,
+  "batch": 8,
+  "lr": 0.0003,
+  "base": 32,
+  "height": 144,
+  "width": 352,
+  "seed": 1337,
+  "workers": 4,
+  "n_params": 7762762,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 2060",
+  "torch": "2.6.0+cu124",
+  "python": "3.13.3",
+  "n_train": 8668,
+  "n_val": 895,
+  "n_test": 660,
+  "classes": {
+    "0": "Background",
+    "1": "Dura",
+    "2": "Pia",
+    "3": "CSF",
+    "4": "Spinal cord",
+    "5": "Dorsal Space",
+    "6": "Hematoma",
+    "7": "Ventral Space",
+    "8": "Dura/Pia complex",
+    "9": "Dura/Ventral Complex"
+  }
+}

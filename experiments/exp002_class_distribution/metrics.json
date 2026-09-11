@@ -1,0 +1,185 @@
+{
+  "n_masks": 10223,
+  "observed_by_palette_index": {
+    "0": {
+      "pixels": 18992200,
+      "images": 6385
+    },
+    "1": {
+      "pixels": 142857955,
+      "images": 9814
+    },
+    "2": {
+      "pixels": 142721881,
+      "images": 9839
+    },
+    "3": {
+      "pixels": 118161757,
+      "images": 9613
+    },
+    "4": {
+      "pixels": 812894511,
+      "images": 10223
+    },
+    "5": {
+      "pixels": 397350611,
+      "images": 10223
+    },
+    "6": {
+      "pixels": 69727644,
+      "images": 5756
+    },
+    "7": {
+      "pixels": 89571059,
+      "images": 6099
+    },
+    "8": {
+      "pixels": 57124376,
+      "images": 2732
+    },
+    "9": {
+      "pixels": 58152053,
+      "images": 2671
+    }
+  },
+  "unknown_colours": {
+    "(1, 128, 0)": 7,
+    "(2, 128, 0)": 1,
+    "(3, 128, 0)": 2,
+    "(8, 128, 0)": 1,
+    "(28, 128, 0)": 1,
+    "(42, 128, 0)": 1
+  },
+  "matched_to_paper_table1": {
+    "Dorsal Space": {
+      "palette_index": 5,
+      "observed": {
+        "pixels": 397350611,
+        "images": 10223
+      },
+      "paper": {
+        "pixels": 397350611,
+        "images": 10223
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Dura": {
+      "palette_index": 1,
+      "observed": {
+        "pixels": 142857955,
+        "images": 9814
+      },
+      "paper": {
+        "pixels": 142857955,
+        "images": 9814
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Pia": {
+      "palette_index": 2,
+      "observed": {
+        "pixels": 142721881,
+        "images": 9839
+      },
+      "paper": {
+        "pixels": 142721894,
+        "images": 9839
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "CSF": {
+      "palette_index": 3,
+      "observed": {
+        "pixels": 118161757,
+        "images": 9613
+      },
+      "paper": {
+        "pixels": 118161757,
+        "images": 9613
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Dura/Pia complex": {
+      "palette_index": 8,
+      "observed": {
+        "pixels": 57124376,
+        "images": 2732
+      },
+      "paper": {
+        "pixels": 57124376,
+        "images": 2732
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Spinal cord": {
+      "palette_index": 4,
+      "observed": {
+        "pixels": 812894511,
+        "images": 10223
+      },
+      "paper": {
+        "pixels": 812894511,
+        "images": 10223
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Hematoma": {
+      "palette_index": 6,
+      "observed": {
+        "pixels": 69727644,
+        "images": 5756
+      },
+      "paper": {
+        "pixels": 69727644,
+        "images": 5756
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Dura/Ventral Complex": {
+      "palette_index": 9,
+      "observed": {
+        "pixels": 58152053,
+        "images": 2671
+      },
+      "paper": {
+        "pixels": 58152053,
+        "images": 2671
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Ventral Space": {
+      "palette_index": 7,
+      "observed": {
+        "pixels": 89571059,
+        "images": 6099
+      },
+      "paper": {
+        "pixels": 89571059,
+        "images": 6099
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    },
+    "Background": {
+      "palette_index": 0,
+      "observed": {
+        "pixels": 18992200,
+        "images": 6385
+      },
+      "paper": {
+        "pixels": 18992200,
+        "images": 6385
+      },
+      "pixel_rel_error": 0.0,
+      "image_count_delta": 0
+    }
+  }
+}

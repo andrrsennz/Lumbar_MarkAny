@@ -1,0 +1,33 @@
+{
+  "calibration_within_sweep_adjacent": {
+    "n_adjacent_pairs": 4030,
+    "mean": 0.9771851301193237,
+    "p05": 0.9111561179161072,
+    "p25": 0.9790593385696411,
+    "median": 0.9904865026473999
+  },
+  "splits": {
+    "val": {
+      "n": 895,
+      "nn_cosine_mean": 0.6097745299339294,
+      "nn_cosine_median": 0.6681956052780151,
+      "nn_cosine_p90": 0.7693961262702942,
+      "nn_cosine_max": 0.8110319375991821,
+      "frac_ge_0.99": 0.0,
+      "frac_ge_0.95": 0.0,
+      "frac_ge_calib_p05": 0.0,
+      "calib_p05_threshold": 0.9111561179161072
+    },
+    "test": {
+      "n": 660,
+      "nn_cosine_mean": 0.6359313726425171,
+      "nn_cosine_median": 0.5980585813522339,
+      "nn_cosine_p90": 0.8196402788162231,
+      "nn_cosine_max": 0.890105128288269,
+      "frac_ge_0.99": 0.0,
+      "frac_ge_0.95": 0.0,
+      "frac_ge_calib_p05": 0.0,
+      "calib_p05_threshold": 0.9111561179161072
+    }
+  }
+}
