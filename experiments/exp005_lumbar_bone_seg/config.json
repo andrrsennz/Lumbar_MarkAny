@@ -1,12 +1,12 @@
 {
   "root": "data/processed/kuleuven_lumbar",
   "out": "experiments/exp005_lumbar_bone_seg",
-  "epochs": 14,
-  "batch": 16,
+  "epochs": 12,
+  "batch": 32,
   "lr": 0.0003,
-  "base": 32,
-  "height": 384,
-  "width": 192,
+  "base": 16,
+  "height": 320,
+  "width": 160,
   "seed": 1337,
   "folds": [
     [
@@ -30,7 +30,7 @@
   "gpu": "NVIDIA GeForce RTX 2060",
   "torch": "2.6.0+cu124",
   "python": "3.13.3",
-  "git_sha": "fbc3afb8373b7f26129fc6967e3b159f65957397",
+  "git_sha": "ac63d3491ffb599dc81493983b364f5efd6f3256",
   "n_index": 6182,
   "dataset_doi": "doi:10.48804/3XPCAE",
   "licence": "CC-BY-4.0",

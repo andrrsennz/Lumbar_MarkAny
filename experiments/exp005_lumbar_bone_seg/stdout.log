@@ -1,0 +1,6 @@
+
+=== fold 0: test=['URS08', 'URS16', 'URS31']  train=['URS26', 'URS36', 'URS40', 'URS45', 'URS51', 'URS54'] ===
+   regime HUS : 1750 training frames from 5 subjects
+      ep  1/12 loss 0.8696 (58s)
+      ep  2/12 loss 0.8104 (56s)
+      ep  3/12 loss 0.7876 (58s)

@@ -81,7 +81,7 @@ class DiceBCE(nn.Module):
 @torch.no_grad()
 def evaluate(model, rows, root, size, dev, batch=16, thr=0.5, tol=2):
     ds = LumbarBoneSeg(rows, root=root, size=size)
-    dl = DataLoader(ds, batch_size=batch, shuffle=False, num_workers=4, pin_memory=True)
+    dl = DataLoader(ds, batch_size=batch, shuffle=False, num_workers=0, pin_memory=True)
     byuid = {r["uid"]: r for r in rows}
     per = []
     model.eval()

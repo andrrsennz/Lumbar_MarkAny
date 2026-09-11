@@ -69,12 +69,44 @@ def resize_mask_max(m: np.ndarray, size_hw) -> np.ndarray:
 
 
 class LumbarBoneSeg(Dataset):
+    """Frames + expert masks at training resolution.
+
+    If `tools/cache_lumbar_arrays.py` has been run for this size, the cached
+    memory-mapped arrays are used. Decoding 6,182 PNGs of 810x430 per epoch
+    left the GPU at 100% utilisation but starved (~138 s/epoch); the cache makes
+    training GPU-bound. Content is identical either way.
+    """
+
     def __init__(self, rows, root="data/processed/kuleuven_lumbar",
                  size=(384, 192), augment=False, drop_empty=False):
         self.root = pathlib.Path(root)
         self.rows = [r for r in rows if not (drop_empty and r["empty_label"])]
         self.size = size
         self.augment = augment
+        H, W = size
+        ci, cm = self.root / f"cache_img_{H}x{W}.npy", self.root / f"cache_msk_{H}x{W}.npy"
+        co = self.root / f"cache_order_{H}x{W}.csv"
+        # Paths only -- a numpy memmap cannot be pickled to Windows spawn
+        # workers, so each worker opens it lazily on first access instead.
+        self._cache_paths = None
+        self._cache = None
+        if ci.exists() and cm.exists() and co.exists():
+            order = {r["uid"]: int(r["row"]) for r in csv.DictReader(open(co, encoding="utf-8"))}
+            if all(r["uid"] in order for r in self.rows):
+                self._cache_paths = (str(ci), str(cm))
+                self._rowmap = [order[r["uid"]] for r in self.rows]
+
+    @property
+    def cache(self):
+        if self._cache_paths is None:
+            return None
+        if self._cache is None:
+            ci, cm = self._cache_paths
+            # Loaded fully into RAM (2 x 456 MB), not memory-mapped: random
+            # access into a cold memmap on this volume was ~4x slower than the
+            # PNG path it was meant to replace.
+            self._cache = (np.load(ci), np.load(cm), self._rowmap)
+        return self._cache
 
     def __len__(self):
         return len(self.rows)
@@ -82,10 +114,16 @@ class LumbarBoneSeg(Dataset):
     def __getitem__(self, i):
         r = self.rows[i]
         H, W = self.size
-        img = Image.open(self.root / "images" / f"{r['uid']}.png").convert("L")
-        x = np.asarray(img.resize((W, H), Image.BILINEAR), dtype=np.float32) / 255.0
-        m = np.asarray(Image.open(self.root / "masks" / f"{r['uid']}.png")) > 127
-        y = resize_mask_max(m, (H, W))
+        cache = self.cache
+        if cache is not None:
+            ci, cm, idx = cache
+            x = ci[idx[i]].astype(np.float32) / 255.0
+            y = cm[idx[i]].astype(bool)
+        else:
+            img = Image.open(self.root / "images" / f"{r['uid']}.png").convert("L")
+            x = np.asarray(img.resize((W, H), Image.BILINEAR), dtype=np.float32) / 255.0
+            m = np.asarray(Image.open(self.root / "masks" / f"{r['uid']}.png")) > 127
+            y = resize_mask_max(m, (H, W))
 
         if self.augment:
             rng = np.random
