@@ -7,6 +7,8 @@ TARGETS = [
      "https://drive.google.com/file/d/1C3NgTmC8gBNG8mL632Oz2i1j156zhSXk/view"),
     ("jhu_spinal_cord_segmentation", "data/raw/jhu_spinal_cord/jhu_segmentation.zip",
      "https://drive.google.com/file/d/1r3UNudTpPJyO1kJdVfQqPsBDduAWp2iS/view"),
+    ("masoumi_us_ct_registration", "data/raw/masoumi_us_ct/Data.zip",
+     "https://zenodo.org/api/records/4813508/files/Data.zip/content"),
 ]
 OUT = pathlib.Path("provenance/DATA_DOWNLOAD_LOG.csv")
 OUT.parent.mkdir(parents=True, exist_ok=True)
