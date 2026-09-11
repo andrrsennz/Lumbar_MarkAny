@@ -51,22 +51,21 @@ def resize_mask_max(m: np.ndarray, size_hw) -> np.ndarray:
 
     PIL NEAREST would drop a 1-2 px contour almost entirely; max-pooling keeps
     the structure connected, which is what the task actually needs.
+
+    Implemented with `np.maximum.reduceat` rather than a Python loop: this runs
+    for every sample of every epoch, and the naive version was the single
+    biggest throughput bottleneck in training.
     """
     H, W = size_hw
     h, w = m.shape
-    ys = (np.arange(H + 1) * h / H).astype(int)
-    xs = (np.arange(W + 1) * w / W).astype(int)
-    out = np.zeros((H, W), bool)
-    for i in range(H):
-        a, b = ys[i], max(ys[i] + 1, ys[i + 1])
-        band = m[a:b]
-        if not band.any():
-            continue
-        for j in range(W):
-            c, d = xs[j], max(xs[j] + 1, xs[j + 1])
-            if band[:, c:d].any():
-                out[i, j] = True
-    return out
+    if (h, w) == (H, W):
+        return m.astype(bool)
+    ys = np.minimum((np.arange(H) * h) // H, h - 1)
+    xs = np.minimum((np.arange(W) * w) // W, w - 1)
+    a = m.astype(np.uint8)
+    a = np.maximum.reduceat(a, ys, axis=0)
+    a = np.maximum.reduceat(a, xs, axis=1)
+    return a.astype(bool)
 
 
 class LumbarBoneSeg(Dataset):

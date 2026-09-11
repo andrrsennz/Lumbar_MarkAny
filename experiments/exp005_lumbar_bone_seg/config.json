@@ -1,0 +1,38 @@
+{
+  "root": "data/processed/kuleuven_lumbar",
+  "out": "experiments/exp005_lumbar_bone_seg",
+  "epochs": 14,
+  "batch": 16,
+  "lr": 0.0003,
+  "base": 32,
+  "height": 384,
+  "width": 192,
+  "seed": 1337,
+  "folds": [
+    [
+      "URS08",
+      "URS16",
+      "URS31"
+    ],
+    [
+      "URS26",
+      "URS36",
+      "URS51"
+    ],
+    [
+      "URS40",
+      "URS45",
+      "URS54"
+    ]
+  ],
+  "regimes": "HUS,RUS,BOTH",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 2060",
+  "torch": "2.6.0+cu124",
+  "python": "3.13.3",
+  "git_sha": "fbc3afb8373b7f26129fc6967e3b159f65957397",
+  "n_index": 6182,
+  "dataset_doi": "doi:10.48804/3XPCAE",
+  "licence": "CC-BY-4.0",
+  "task": "binary expert bone-surface segmentation (NOT a puncture target)"
+}
