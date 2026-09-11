@@ -17,3 +17,13 @@
       -> test RUS: subject-mean Dice 0.5680 tolF1 0.7587 (n_subj=3, n_frames=1278)
    regime RUS : 2453 training frames from 6 subjects
       ep  1/12 loss 0.8475 (71s)
+      ep  2/12 loss 0.7923 (75s)
+      ep  3/12 loss 0.7670 (79s)
+      ep  4/12 loss 0.7454 (82s)
+      ep  5/12 loss 0.7267 (78s)
+      ep  6/12 loss 0.7116 (77s)
+      ep  7/12 loss 0.6993 (77s)
+      ep  8/12 loss 0.6899 (72s)
+      ep  9/12 loss 0.6834 (79s)
+      ep 10/12 loss 0.6791 (75s)
+      ep 11/12 loss 0.6767 (77s)

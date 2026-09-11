@@ -1,0 +1,5 @@
+dataset,year,subjects,cohort,position,probe,modality,transcutaneous,annotated_images,annotation_classes,procedural_target,download_status,licence,held_by_us
+KU Leuven / Balgrist (doi:10.48804/3XPCAE),2025,63,"healthy volunteers 20-35, BMI 19-26",prone,10 MHz linear,handheld + robot-assisted,yes,6182 (9 subjects),1 (visible bone surface),NO,PUBLIC_DOWNLOADABLE,CC-BY-4.0,YES
+SUID (doi:10.1177/03000605261461196),2026,80,"pregnant, elective caesarean",lateral decubitus,2-5 MHz convex,handheld,yes,1000,"interlaminar space, articular process, anterior + posterior complex",NO,REQUEST_ONLY,article CC BY-NC 4.0; data not released,no
+JHU HEPIUS (PMC12475011),2025,25 pigs + 8 humans,porcine + surgical,"prone, intraoperative",unknown,handheld,NO - post-laminectomy,10223,10 anatomical,NO,PUBLIC (no licence declared),NONE DECLARED,"yes, locally only"
+Masoumi (doi:10.5281/zenodo.4813508),2021,3 human + 2 ex-vivo,archival CT + phantoms,n/a,unknown,simulated + phantom US,no,21 landmark pairs x2,landmarks,NO,PUBLIC_DOWNLOADABLE,CC-BY-4.0,yes
