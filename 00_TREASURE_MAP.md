@@ -13,7 +13,7 @@
 - **Contact sheet** — `visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_PAIRED_HUS_RUS.png`
 - **Contact sheet** — `visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_RUS_GT.png`
 - **FIGURE_1_REAL_LUMBAR_EVIDENCE_PIPELINE** — `deliverables/paper_v2_assets/FIGURE_1_REAL_LUMBAR_EVIDENCE_PIPELINE.png`
-- **FIGURE_2_HUMAN_LUMBAR_AI_RESULTS** — _not generated_
+- **FIGURE_2_HUMAN_LUMBAR_AI_RESULTS** — `deliverables/paper_v2_assets/FIGURE_2_HUMAN_LUMBAR_AI_RESULTS.png`
 
 ## Asset counts
 
@@ -31,7 +31,7 @@
 | `visuals/ultrasound/real_human_lumbar/failures` | 9 |
 | `visuals/ultrasound/real_human_lumbar/difficult_cases` | 8 |
 | `visuals/ultrasound/real_human_lumbar/contact_sheets` | 4 |
-| `visuals/ultrasound/real_human_lumbar/publication_candidates` | 1 |
+| `visuals/ultrasound/real_human_lumbar/publication_candidates` | 2 |
 
 ## Where the evidence is
 

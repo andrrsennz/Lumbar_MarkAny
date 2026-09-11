@@ -86,11 +86,12 @@ Dense grids for rapid inspection; each states its own selection rule.
 [![CONTACT_SHEET_PAIRED_HUS_RUS.png](visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_PAIRED_HUS_RUS.png)](visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_PAIRED_HUS_RUS.png)
 [![CONTACT_SHEET_RUS_GT.png](visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_RUS_GT.png)](visuals/ultrasound/real_human_lumbar/contact_sheets/CONTACT_SHEET_RUS_GT.png)
 
-## Publication candidates  (1 assets)
+## Publication candidates  (2 assets)
 
 Composite figures assembled for the paper.
 
 [![FIGURE_1_REAL_LUMBAR_EVIDENCE_PIPELINE.png](visuals/ultrasound/real_human_lumbar/publication_candidates/FIGURE_1_REAL_LUMBAR_EVIDENCE_PIPELINE.png)](visuals/ultrasound/real_human_lumbar/publication_candidates/FIGURE_1_REAL_LUMBAR_EVIDENCE_PIPELINE.png)
+[![FIGURE_2_HUMAN_LUMBAR_AI_RESULTS.png](visuals/ultrasound/real_human_lumbar/publication_candidates/FIGURE_2_HUMAN_LUMBAR_AI_RESULTS.png)](visuals/ultrasound/real_human_lumbar/publication_candidates/FIGURE_2_HUMAN_LUMBAR_AI_RESULTS.png)
 
 ## Where the numbers are
 
