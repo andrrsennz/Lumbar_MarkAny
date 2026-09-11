@@ -1,0 +1,50 @@
+device=cuda checkpoint_epoch=21 dropout_layers_active=1
+{
+ "n_test_images": 660,
+ "mean_dice_mc": 0.7224408839133787,
+ "spearman_entropy_vs_dice": -0.7306487263410948,
+ "spearman_disagreement_vs_dice": -0.763405166845487
+}
+
+abstention: {
+ "5%": {
+  "n_declined": 33,
+  "dice_on_retained": 0.7277533051997066,
+  "dice_on_declined": 0.621504879473148,
+  "improvement": 0.0053124212863279174
+ },
+ "10%": {
+  "n_declined": 66,
+  "dice_on_retained": 0.7345902842032297,
+  "dice_on_declined": 0.6130962813047202,
+  "improvement": 0.012149400289851009
+ },
+ "20%": {
+  "n_declined": 132,
+  "dice_on_retained": 0.7476487524753952,
+  "dice_on_declined": 0.6216094096653125,
+  "improvement": 0.02520786856201651
+ },
+ "30%": {
+  "n_declined": 198,
+  "dice_on_retained": 0.7644273972782519,
+  "dice_on_declined": 0.6244723527286743,
+  "improvement": 0.041986513364873246
+ }
+}
+
+failure taxonomy: {
+ "worst_decile_n": 66,
+ "worst_decile_mean_dice": 0.5444397707100926,
+ "best_decile_mean_dice": 0.9095413541087989,
+ "worst_decile_mean_image_intensity": 0.25330363055973343,
+ "best_decile_mean_image_intensity": 0.37165782261978497,
+ "worst_decile_mean_image_contrast_sd": 0.20592067142327627,
+ "best_decile_mean_image_contrast_sd": 0.28270259409239795,
+ "worst_decile_mean_entropy": 0.1115756459872831,
+ "best_decile_mean_entropy": 0.07282078745916035,
+ "spearman_dice_vs_image_contrast": 0.5423513160248093,
+ "spearman_dice_vs_image_intensity": 0.47506102881528445
+}
+
+wrote experiments\exp004_uncertainty_failure\metrics.json

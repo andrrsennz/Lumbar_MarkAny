@@ -24,6 +24,15 @@ to the published benchmarks.
 resampled (no animal ID exists). This **understates** uncertainty relative to
 the animal-level inference that would be correct.
 
+**A caveat visible in the training curve.** Validation macro Dice oscillates
+across a narrow band (0.7312-0.7658, range 0.0345) from roughly epoch 2 onward.
+The model plateaus almost immediately, and the selected "best" epoch (21) sits
+**inside that noise band** rather than at a meaningful optimum. Checkpoint
+selection here is therefore close to arbitrary, and a different seed would very
+likely pick a different epoch with indistinguishable test performance. One more
+reason to read the reported test figure as "the pipeline works and produces
+this order of magnitude", not as a tuned result.
+
 Artefacts: `config.json`, `history.json`, `metrics.json`, `stdout.log`,
 `predictions/per_image_metrics.npz`. Checkpoint `best.pt` is not tracked in Git
 (regenerate with the command in `command.txt`).

@@ -31,3 +31,61 @@ ep  22/30  loss 0.0788  val_dice 0.7490  (104s)
 ep  23/30  loss 0.0776  val_dice 0.7549  (104s)
 ep  24/30  loss 0.0768  val_dice 0.7536  (103s)
 ep  25/30  loss 0.0756  val_dice 0.7524  (102s)
+ep  26/30  loss 0.0746  val_dice 0.7546  (102s)
+ep  27/30  loss 0.0737  val_dice 0.7515  (102s)
+ep  28/30  loss 0.0740  val_dice 0.7544  (102s)
+ep  29/30  loss 0.0733  val_dice 0.7522  (102s)
+ep  30/30  loss 0.0726  val_dice 0.7540  (101s)
+
+=== TEST ===
+{
+ "n_images": 660,
+ "mean_dice": 0.7232344168621054,
+ "sd_dice": 0.11593070816764867,
+ "median_dice": 0.6967225618291776,
+ "iqr_dice": [
+  0.6315811251619998,
+  0.8061089294557868
+ ],
+ "ci95_mean_dice_bootstrap": [
+  0.7141774191501873,
+  0.7321078881102809
+ ],
+ "mean_iou": 0.6322669346639042,
+ "per_class_dice": {
+  "Background": 0.641116604442093,
+  "Dura": 0.760049511708356,
+  "Pia": 0.7637076999701983,
+  "CSF": 0.6645405846012765,
+  "Spinal cord": 0.9468549793121572,
+  "Dorsal Space": 0.9165243859037122,
+  "Hematoma": 0.7333709597361149,
+  "Ventral Space": 0.4748688685769957,
+  "Dura/Pia complex": 0.24868125090583984,
+  "Dura/Ventral Complex": 0.4918710224789425
+ },
+ "per_class_iou": {
+  "Background": 0.5329368928517062,
+  "Dura": 0.6319251893598246,
+  "Pia": 0.6332570060685337,
+  "CSF": 0.5423915689502696,
+  "Spinal cord": 0.90088797126602,
+  "Dorsal Space": 0.8535357065034408,
+  "Hematoma": 0.6091950453680993,
+  "Ventral Space": 0.4348653857755946,
+  "Dura/Pia complex": 0.21842114963191667,
+  "Dura/Ventral Complex": 0.3540991673196036
+ },
+ "per_class_n_images_defined": {
+  "Background": 399,
+  "Dura": 660,
+  "Pia": 660,
+  "CSF": 658,
+  "Spinal cord": 660,
+  "Dorsal Space": 660,
+  "Hematoma": 495,
+  "Ventral Space": 622,
+  "Dura/Pia complex": 237,
+  "Dura/Ventral Complex": 313
+ }
+}

@@ -23,9 +23,68 @@ COMMANDS = {
     "exp003_unet_baseline": (
         "./.venv/Scripts/python.exe scripts/experiments/train_seg.py "
         "--epochs 30 --out experiments/exp003_unet_baseline --workers 4"),
+    "exp004_uncertainty_failure": (
+        "./.venv/Scripts/python.exe scripts/experiments/uncertainty_failure.py"),
 }
 
 READMES = {
+    "exp004_uncertainty_failure": """# exp004 - uncertainty and failure analysis
+
+> Porcine, intraoperative, post-laminectomy. This validates the uncertainty
+> **mechanism**. It is not a clinical safety claim, and the model is not
+> safety-certified.
+
+**Question.** Can the model tell when it is wrong? A guidance system that
+proposes a target must be able to decline to propose one, and a confidence
+display that does not track real error is worse than none.
+
+**Method.** Monte-Carlo dropout: the bottleneck `Dropout2d` is re-enabled at
+test time (BatchNorm deliberately left in eval) and 10 stochastic passes give a
+predictive distribution per pixel. Two summaries - mean predictive entropy, and
+the fraction of passes disagreeing with the modal prediction - are correlated
+against the per-image Dice each image actually achieved.
+
+**Results.**
+
+| Measure | Spearman rho vs Dice |
+|---|---|
+| mean predictive entropy | **-0.731** |
+| inter-pass disagreement | **-0.763** |
+
+Both are strongly negative: the uncertainty signal tracks real error rather
+than being decorative.
+
+**Abstention.** Declining the most-uncertain images improves what remains:
+
+| Declined | Dice on retained | Dice on declined |
+|---|---|---|
+| 0% | 0.722 | - |
+| 5% | 0.728 | 0.622 |
+| 10% | 0.735 | 0.613 |
+| 20% | 0.748 | 0.622 |
+| 30% | **0.764** | 0.625 |
+
+**Failure taxonomy.** The worst decile (mean Dice 0.544) differs from the best
+decile (0.910) systematically in image statistics, not randomly:
+
+| | worst decile | best decile |
+|---|---|---|
+| mean image intensity | 0.253 | 0.372 |
+| image contrast (SD) | 0.206 | 0.283 |
+| mean predictive entropy | 0.112 | 0.073 |
+
+Spearman Dice vs contrast **+0.542**, vs intensity **+0.475**. **Failures
+concentrate in dark, low-contrast images** - the signature of poor acoustic
+coupling or attenuation, which is exactly the failure mode a scan-quality gate
+is meant to catch before a target is ever proposed.
+
+**Why this matters to the project.** It is direct evidence for the design
+principle in `SYSTEM_ARCHITECTURE_AND_AUTONOMY.md`: the system's most important
+behaviour is knowing when not to act, and that behaviour is measurable.
+
+Artefacts: `metrics.json`, `per_image.npz` (per-image Dice, entropy,
+disagreement, image statistics).
+""",
     "exp001_leakage_audit": """# exp001 — split-integrity audit
 
 **Question.** Do the official train/val/test splits of the JHU spinal-cord
@@ -109,6 +168,15 @@ to the published benchmarks.
 **Uncertainty.** Bootstrap CIs resample **images**, because animals cannot be
 resampled (no animal ID exists). This **understates** uncertainty relative to
 the animal-level inference that would be correct.
+
+**A caveat visible in the training curve.** Validation macro Dice oscillates
+across a narrow band (0.7312-0.7658, range 0.0345) from roughly epoch 2 onward.
+The model plateaus almost immediately, and the selected "best" epoch (21) sits
+**inside that noise band** rather than at a meaningful optimum. Checkpoint
+selection here is therefore close to arbitrary, and a different seed would very
+likely pick a different epoch with indistinguishable test performance. One more
+reason to read the reported test figure as "the pipeline works and produces
+this order of magnitude", not as a tuned result.
 
 Artefacts: `config.json`, `history.json`, `metrics.json`, `stdout.log`,
 `predictions/per_image_metrics.npz`. Checkpoint `best.pt` is not tracked in Git

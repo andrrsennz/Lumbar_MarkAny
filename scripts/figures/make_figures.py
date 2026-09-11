@@ -249,9 +249,13 @@ def fig_per_class_dice():
     y = np.arange(len(names))
     ax.barh(y, vals, height=0.62, color=C1, zorder=3)
     ax.axvline(m["mean_dice"], color=INK, ls="--", lw=1.4, zorder=4)
-    ax.text(m["mean_dice"] + 0.008, len(names) - 0.4,
-            f"image-level macro mean {m['mean_dice']:.3f}",
-            fontsize=8.5, color=INK, va="center")
+    # Place the mean callout above the plot area so it cannot collide with a
+    # bar's value label.
+    ax.annotate(f"image-level macro mean {m['mean_dice']:.3f}",
+                xy=(m["mean_dice"], -0.62), xytext=(m["mean_dice"] + 0.02, -1.05),
+                fontsize=8.5, color=INK, va="center", ha="left",
+                annotation_clip=False,
+                arrowprops=dict(arrowstyle="-", color=INK, lw=1.0))
     for i, k in enumerate(names):
         ax.text(vals[i] + 0.008, i, f"{vals[i]:.3f}   n={n[k]:,}",
                 va="center", fontsize=8, color=INK)
@@ -269,10 +273,58 @@ def fig_per_class_dice():
            "Source: experiments/exp003_unet_baseline/metrics.json (E1).")
 
 
+# ---------------------------------------------------------------- figure 6
+def fig_uncertainty():
+    """Does uncertainty track error? Scatter + abstention curve, two panels."""
+    mp = pathlib.Path("experiments/exp004_uncertainty_failure/metrics.json")
+    ap = pathlib.Path("experiments/exp004_uncertainty_failure/per_image.npz")
+    if not (mp.exists() and ap.exists()):
+        print("  skip fig06 (exp004 not run)"); return
+    m = json.load(open(mp, encoding="utf-8"))
+    d = np.load(ap, allow_pickle=True)
+    dice, ent = d["dice"], d["entropy"]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.8, 4.0))
+
+    # panel 1: uncertainty vs error
+    axes[0].scatter(ent, dice, s=11, color=C1, alpha=0.45, linewidths=0, zorder=3)
+    axes[0].set_xlabel("mean predictive entropy (MC dropout, 10 passes)")
+    axes[0].set_ylabel("per-image Dice")
+    axes[0].set_title("Uncertainty tracks real error", loc="left", pad=10)
+    axes[0].text(0.97, 0.95,
+                 "Spearman ρ = {:+.3f}".format(m["spearman_entropy_vs_dice"]),
+                 transform=axes[0].transAxes, ha="right", va="top",
+                 fontsize=10, color=INK, fontweight="bold")
+
+    # panel 2: abstention
+    fr = [0] + [int(k.rstrip("%")) for k in m["abstention"]]
+    keep = [m["mean_dice_mc"]] + [v["dice_on_retained"] for v in m["abstention"].values()]
+    axes[1].plot(fr, keep, color=C2, lw=2, marker="o", ms=6,
+                 markeredgecolor=SURFACE, markeredgewidth=1.5, zorder=3)
+    for x, y in zip(fr, keep):
+        axes[1].annotate(f"{y:.3f}", (x, y), textcoords="offset points",
+                         xytext=(0, 9), ha="center", fontsize=8, color=INK)
+    axes[1].set_xlabel("% of most-uncertain images declined")
+    axes[1].set_ylabel("Dice on retained images")
+    axes[1].set_title("Abstention improves what remains", loc="left", pad=10)
+    axes[1].set_ylim(min(keep) - 0.012, max(keep) + 0.022)
+
+    for ax in axes:
+        ax.yaxis.grid(True, zorder=0); ax.set_axisbelow(True); despine(ax)
+    fig.tight_layout(rect=[0, 0.03, 1, 0.85])
+    headline(fig, "Can the model tell when it is wrong?",
+             "Yes, on this data. Both uncertainty measures correlate strongly with error "
+             "(entropy ρ={:+.3f}, pass-disagreement ρ={:+.3f}).".format(
+                 m["spearman_entropy_vs_dice"], m["spearman_disagreement_vs_dice"]))
+    finish(fig, "fig06_uncertainty_abstention",
+           "Source: experiments/exp004_uncertainty_failure (E1). Porcine intraoperative data: "
+           "this validates the uncertainty mechanism, not any clinical safety property.")
+
+
 if __name__ == "__main__":
     print("generating figures ...")
     for fn in (fig_dataset_survey, fig_class_distribution, fig_leakage_audit,
-               fig_training, fig_per_class_dice):
+               fig_training, fig_per_class_dice, fig_uncertainty):
         try:
             fn()
         except Exception as e:

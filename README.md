@@ -47,11 +47,14 @@ Used consistently across every document in this repository.
 |---|---|---|
 | [`exp001_leakage_audit`](experiments/exp001_leakage_audit/) | Do the official JHU splits leak near-duplicate frames into the test set? | **No.** Within-sweep adjacent frames have cosine ≈0.99 (median), but no held-out image exceeds 0.89 against any training image. A negative result: our leakage hypothesis was wrong and the splits are sweep-disjoint. |
 | [`exp002_class_distribution`](experiments/exp002_class_distribution/) | Do the distributed masks contain what the publication claims? | **Yes, exactly.** All 10 classes reproduced to the pixel (only 13 stray anti-aliased pixels differ across 1.9 billion). Also recovered the **undocumented** palette→class mapping, now published in `src/lumbar_markany/data_jhu.py`. |
-| [`exp003_unet_baseline`](experiments/exp003_unet_baseline/) | Baseline 10-class segmentation on the official split. | See `experiments/exp003_unet_baseline/metrics.json`. Reported with per-class Dice/IoU, bootstrap 95% CIs, and explicit NaN handling for absent classes. |
+| [`exp003_unet_baseline`](experiments/exp003_unet_baseline/) | Baseline 10-class segmentation on the official split. | Test macro Dice **0.7232** (95% bootstrap CI 0.7142–0.7321, n=660). Per class from 0.947 (Spinal cord) to 0.249 (Dura/Pia complex) — independently reproducing the source paper's qualitative finding that the rare complex classes fail worst. |
+| [`exp004_uncertainty_failure`](experiments/exp004_uncertainty_failure/) | Can the model tell when it is wrong? | **Yes, measurably.** MC-dropout uncertainty correlates with real error at Spearman **ρ = −0.731** (entropy) and **−0.763** (pass disagreement). Declining the most-uncertain 30% raises retained Dice to 0.764. Failures concentrate in **dark, low-contrast** images (Dice vs contrast ρ = +0.542). |
 
 **These results are about porcine intraoperative spinal cord imaging, not lumbar
 puncture.** They validate the pipeline; they say nothing about human neuraxial
-anatomy. That distinction is enforced in
+anatomy. The uncertainty result matters to the *design* — it is direct evidence
+that a system can be built to know when not to act — but it is not a safety
+claim and the model is not safety-certified. That distinction is enforced in
 [`deliverables/paper/CLAIMS_NOT_ALLOWED.md`](deliverables/paper/CLAIMS_NOT_ALLOWED.md).
 
 ---
@@ -92,6 +95,8 @@ python scripts/data/verify_checksums.py
 python scripts/analysis/leakage_audit.py
 python scripts/analysis/verify_class_distribution.py
 python scripts/experiments/train_seg.py --epochs 30
+python scripts/experiments/uncertainty_failure.py
+python scripts/figures/make_figures.py
 ```
 
 A GPU is optional; `train_seg.py` falls back to CPU. The reported run used an

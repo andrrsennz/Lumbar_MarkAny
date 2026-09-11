@@ -158,8 +158,57 @@ def row_exp003():
     }
 
 
+def row_exp004():
+    p = EXP / "exp004_uncertainty_failure" / "metrics.json"
+    if not p.exists():
+        return {"experiment_id": "exp004_uncertainty_failure", "status": "NOT RUN",
+                "objective": "Does a cheap uncertainty signal track actual error?"}
+    m = json.loads(p.read_text(encoding="utf-8"))
+    ab = m["abstention"]["30%"]
+    t = m["failure_taxonomy"]
+    return {
+        "experiment_id": "exp004_uncertainty_failure", "date": "2026-09-11",
+        "objective": ("Test whether Monte-Carlo-dropout uncertainty correlates with real "
+                      "segmentation error, whether abstention improves retained performance, "
+                      "and what the worst cases have in common"),
+        "dataset": "DS004 JHU spinal-cord segmentation (porcine, INTRAOPERATIVE post-laminectomy)",
+        "dataset_version": "sha256 8842d153...",
+        "train_subjects": UNKNOWN_SUBJ, "validation_subjects": UNKNOWN_SUBJ,
+        "test_subjects": UNKNOWN_SUBJ,
+        "train_frames": "n/a (inference only)", "validation_frames": "n/a",
+        "test_frames": m["n_test_images"],
+        "model": "U-Net from exp003, bottleneck Dropout2d re-enabled at test time (BatchNorm kept in eval)",
+        "initialization": f"checkpoint from exp003 epoch {m['checkpoint_epoch']}",
+        "preprocessing": "as exp003", "augmentation": "none",
+        "random_seed": "stochastic by design (MC dropout)",
+        "epochs": "n/a", "batch_size": 8, "optimizer": "n/a", "learning_rate": "n/a",
+        "hardware": "NVIDIA GeForce RTX 2060", "runtime": f"{m['mc_passes']} forward passes over the test split",
+        "status": "COMPLETE",
+        "primary_metric": "Spearman rho between MC-dropout uncertainty and per-image Dice",
+        "metric_value": (f"entropy {m['spearman_entropy_vs_dice']:+.4f}; "
+                         f"pass-disagreement {m['spearman_disagreement_vs_dice']:+.4f}"),
+        "secondary_metrics": (
+            f"abstaining on the most-uncertain 30% raises retained Dice from "
+            f"{m['mean_dice_mc']:.4f} to {ab['dice_on_retained']:.4f} ({ab['improvement']:+.4f}), "
+            f"with declined images at {ab['dice_on_declined']:.4f}; "
+            f"worst decile Dice {t['worst_decile_mean_dice']:.4f} vs best decile "
+            f"{t['best_decile_mean_dice']:.4f}; Spearman Dice vs image contrast "
+            f"{t['spearman_dice_vs_image_contrast']:+.4f}, vs mean intensity "
+            f"{t['spearman_dice_vs_image_intensity']:+.4f}"),
+        "confidence_interval": "not computed - rank correlation over all 660 test images",
+        "artifact": "experiments/exp004_uncertainty_failure/per_image.npz",
+        "log": "experiments/exp004_stdout.log",
+        "notes": ("Both uncertainty measures are strongly negatively correlated with Dice, so "
+                  "the signal tracks real error rather than being decorative. Failures "
+                  "concentrate in DARK, LOW-CONTRAST images (worst decile mean intensity 0.25 "
+                  "vs 0.37; contrast SD 0.21 vs 0.28), consistent with poor acoustic coupling "
+                  "or attenuation. PORCINE, INTRAOPERATIVE data: this validates the MECHANISM. "
+                  "It is not a safety claim and the model is not safety-certified."),
+    }
+
+
 def main():
-    rows = [row_exp001(), row_exp002(), row_exp003()]
+    rows = [row_exp001(), row_exp002(), row_exp003(), row_exp004()]
     for r in rows:
         for k in FIELDS:
             r.setdefault(k, "")
