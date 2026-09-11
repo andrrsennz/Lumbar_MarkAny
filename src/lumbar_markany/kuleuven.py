@@ -16,12 +16,21 @@ Both are 2-D MetaImage: `NDims = 2`, `DimSize = 1920 1080`, `ElementType =
 MET_UCHAR`, single channel, `CompressedData = True` (raw payload is zlib).
 Note DimSize is (width height), so the array is reshaped to (1080, 1920).
 
-LABEL SEMANTICS
----------------
-Label arrays contain values {1, 2}:
-    1 = background / not annotated
-    2 = annotated BONE SURFACE
-Typically ~0.06% of pixels carry value 2, consistent with a thin surface
+LABEL SEMANTICS -- verified across all 18 archives, not assumed
+---------------------------------------------------------------
+    2 = annotated BONE SURFACE, in EVERY archive
+    background = 0 in six archives (URS08_R2, URS16_H3, URS16_R1, URS26_H3,
+                 URS26_R1, URS31_D2) and 1 in the other twelve.
+
+The background value is therefore NOT consistent across the deposit, and no
+frame ever mixes 0 and 1. Consequences for anyone reading these files:
+
+    mask = (label != 0)   -> 100% false positives on the twelve archives
+                             whose background is 1
+    mask = (label == 1)   -> empty on those same twelve, and wrong on the rest
+    mask = (label == 2)   -> CORRECT everywhere
+
+Typically ~0.08% of pixels carry value 2, consistent with a thin surface
 contour rather than a filled region.
 
 These are annotations of VISIBLE BONE SURFACE. They are NOT lumbar-puncture

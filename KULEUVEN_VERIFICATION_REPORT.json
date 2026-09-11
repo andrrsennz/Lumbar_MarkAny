@@ -1,0 +1,42 @@
+{
+  "published MD5 matches": {
+    "passed": true,
+    "detail": "40 verified, 0 mismatched"
+  },
+  "18 label archives present": {
+    "passed": true,
+    "detail": "18 found"
+  },
+  "expected 9 subjects": {
+    "passed": true,
+    "detail": "9: ['URS08', 'URS16', 'URS26', 'URS31', 'URS36', 'URS40', 'URS45', 'URS51', 'URS54']"
+  },
+  "per-archive frame counts match": {
+    "passed": true,
+    "detail": "6182 listed, 6182 extracted"
+  },
+  "sampled frames reproduce exactly": {
+    "passed": true,
+    "detail": "30 sampled, 0 image / 0 mask mismatches"
+  },
+  "label values are a subset of {0,1,2}": {
+    "passed": true,
+    "detail": "observed [0, 1, 2]"
+  },
+  "no frame mixes background 0 and 1": {
+    "passed": true,
+    "detail": "0 mixed frames"
+  },
+  "each archive uses one background value": {
+    "passed": true,
+    "detail": "6 archives bg=0, 12 bg=1"
+  },
+  "no procedural class present beyond bone surface": {
+    "passed": true,
+    "detail": "bone surface (value 2) is the only annotated class"
+  },
+  "cache 384x192 reproduces PNGs": {
+    "passed": true,
+    "detail": "0 mismatches in 20 sampled"
+  }
+}
