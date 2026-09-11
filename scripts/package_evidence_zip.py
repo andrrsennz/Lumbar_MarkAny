@@ -8,7 +8,7 @@ reproduce the work, plus a git bundle so the full history travels with it.
 
 What is deliberately EXCLUDED, and why:
 
-  * Raw and extracted datasets (1.3 GB held locally, 1.01 TB not obtained).
+  * Raw and extracted datasets (1.45 GB held locally, 1.01 TB not obtained).
     The JHU data carries NO declared licence, so redistributing its pixels
     would be wrong regardless of size. Reacquire with scripts/data/.
   * Model checkpoints -- regenerable, and large.

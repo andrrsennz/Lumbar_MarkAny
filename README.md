@@ -21,7 +21,7 @@ supply.
 |---|---|
 | **What we set out to do** | Train and evaluate lumbar bone-surface segmentation on the KU Leuven paired handheld/robotic lumbar ultrasound dataset (`doi:10.48804/3XPCAE`). |
 | **What blocked it** | The entire `kuleuven.be` domain is unreachable at TCP level from this network, while every other research repository responds normally. The dataset is also 1.01 TB. See [`research/datasets/KULEUVEN_ACCESS_BLOCKER.md`](research/datasets/KULEUVEN_ACCESS_BLOCKER.md). |
-| **What we did instead** | Verified the anchor dataset exhaustively from its open-access full text; surveyed 891 candidate datasets across six repositories; acquired and verified 1.3 GB of the spinal ultrasound data that *is* reachable; and built + measured the complete analysis pipeline on it. |
+| **What we did instead** | Verified the anchor dataset exhaustively from its open-access full text; surveyed 891 candidate datasets across six repositories; acquired and verified 1.45 GB of the spinal ultrasound data that *is* reachable; and built + measured the complete analysis pipeline on it. |
 | **Headline survey finding** | Outside the KU Leuven deposit, **no public, annotated, real human transcutaneous lumbar ultrasound dataset was found**, and **no public dataset anywhere records a procedural target** — entry point, trajectory, depth or outcome. |
 
 ---

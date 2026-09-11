@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" width="980" height="620" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+  <title>Proposed clinical workflow with mandatory physician confirmation gate</title>
+  <desc>Every stage is labelled with its evidence status. The physician confirmation gate is drawn as a barrier that the flow cannot bypass. Nothing in this diagram has been built.</desc>
+
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#52514e"/>
+    </marker>
+    <marker id="arwRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e34948"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="620" fill="#fcfcfb"/>
+
+  <text x="20" y="34" font-size="19" font-weight="bold" fill="#0b0b0b">Proposed clinical workflow</text>
+  <text x="20" y="56" font-size="12.5" fill="#52514e">The physician gate is a hard barrier, not a recommendation. Autonomous needle insertion is out of scope.</text>
+
+  <!-- legend -->
+  <g font-size="11">
+    <rect x="640" y="22" width="13" height="13" rx="2.5" fill="#1baf7a"/>
+    <text x="659" y="33" fill="#0b0b0b">demonstrated by others (E3)</text>
+    <rect x="640" y="42" width="13" height="13" rx="2.5" fill="#eda100"/>
+    <text x="659" y="53" fill="#0b0b0b">proposed, not built (E6)</text>
+    <rect x="640" y="62" width="13" height="13" rx="2.5" fill="#2a78d6"/>
+    <text x="659" y="73" fill="#0b0b0b">clinician action</text>
+  </g>
+
+  <!-- Stage boxes -->
+  <g stroke="#d8d7d1" stroke-width="1.2">
+    <rect x="60" y="96"  width="290" height="46" rx="7" fill="#ffffff"/>
+    <rect x="60" y="160" width="290" height="46" rx="7" fill="#ffffff"/>
+    <rect x="60" y="224" width="290" height="46" rx="7" fill="#ffffff"/>
+    <rect x="60" y="288" width="290" height="46" rx="7" fill="#ffffff"/>
+    <rect x="60" y="352" width="290" height="60" rx="7" fill="#ffffff"/>
+  </g>
+  <!-- status stripes -->
+  <rect x="60" y="96"  width="6" height="46" rx="3" fill="#2a78d6"/>
+  <rect x="60" y="160" width="6" height="46" rx="3" fill="#eda100"/>
+  <rect x="60" y="224" width="6" height="46" rx="3" fill="#eda100"/>
+  <rect x="60" y="288" width="6" height="46" rx="3" fill="#eda100"/>
+  <rect x="60" y="352" width="6" height="60" rx="3" fill="#eda100"/>
+
+  <g font-size="13" fill="#0b0b0b">
+    <text x="80" y="117">Patient positioned</text>
+    <text x="80" y="134" font-size="11" fill="#52514e">sitting or lateral decubitus — NOT prone</text>
+
+    <text x="80" y="181">Ultrasound acquisition</text>
+    <text x="80" y="198" font-size="11" fill="#52514e">robot-held probe, force-limited contact</text>
+
+    <text x="80" y="245">AI: is this view usable?</text>
+    <text x="80" y="262" font-size="11" fill="#52514e">scan-quality gate — reject and re-acquire</text>
+
+    <text x="80" y="309">AI: what anatomy is visible?</text>
+    <text x="80" y="326" font-size="11" fill="#52514e">lamina · interlaminar window · posterior complex</text>
+
+    <text x="80" y="373">AI: candidate access window</text>
+    <text x="80" y="390" font-size="11" fill="#52514e">with an uncertainty estimate, and the</text>
+    <text x="80" y="404" font-size="11" fill="#52514e">option to propose nothing at all</text>
+  </g>
+
+  <!-- re-acquire loop -->
+  <path d="M 60 247 L 32 247 L 32 183 L 60 183" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arw)" stroke-dasharray="4 3"/>
+  <text x="26" y="222" font-size="10.5" fill="#52514e" text-anchor="end" transform="rotate(-90 26 222)">re-acquire</text>
+
+  <!-- vertical arrows -->
+  <g fill="none" stroke="#52514e" stroke-width="1.6" marker-end="url(#arw)">
+    <path d="M 205 142 L 205 158"/>
+    <path d="M 205 206 L 205 222"/>
+    <path d="M 205 270 L 205 286"/>
+    <path d="M 205 334 L 205 350"/>
+    <path d="M 205 412 L 205 438"/>
+  </g>
+
+  <!-- GATE -->
+  <rect x="40" y="440" width="330" height="62" rx="8" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.4"/>
+  <rect x="40" y="440" width="6" height="62" rx="3" fill="#2a78d6"/>
+  <text x="62" y="466" font-size="14" font-weight="bold" fill="#0b0b0b">PHYSICIAN REVIEWS</text>
+  <text x="62" y="484" font-size="12" fill="#0b0b0b">confirms · modifies · or rejects</text>
+  <text x="62" y="497" font-size="10.5" fill="#52514e">this gate cannot be bypassed</text>
+
+  <!-- reject path -->
+  <path d="M 370 471 L 410 471 L 410 183 L 350 183" fill="none" stroke="#e34948" stroke-width="1.6" marker-end="url(#arwRed)" stroke-dasharray="5 4"/>
+  <text x="416" y="330" font-size="11" fill="#e34948">reject → re-scan</text>
+
+  <path d="M 205 502 L 205 528" fill="none" stroke="#52514e" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <g stroke="#d8d7d1" stroke-width="1.2">
+    <rect x="60" y="530" width="290" height="44" rx="7" fill="#ffffff"/>
+  </g>
+  <rect x="60" y="530" width="6" height="44" rx="3" fill="#eda100"/>
+  <text x="80" y="551" font-size="13" fill="#0b0b0b">Mechanical guide aligned</text>
+  <text x="80" y="567" font-size="11" fill="#52514e">to the confirmed plan only</text>
+
+  <path d="M 350 552 L 440 552" fill="none" stroke="#52514e" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <rect x="440" y="530" width="280" height="44" rx="7" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2"/>
+  <rect x="440" y="530" width="6" height="44" rx="3" fill="#2a78d6"/>
+  <text x="460" y="551" font-size="13" font-weight="bold" fill="#0b0b0b">PHYSICIAN performs the puncture</text>
+  <text x="460" y="567" font-size="11" fill="#52514e">the system never inserts anything</text>
+
+  <!-- out of scope -->
+  <rect x="640" y="120" width="310" height="150" rx="8" fill="#fdf0ef" stroke="#e34948" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="660" y="146" font-size="13" font-weight="bold" fill="#e34948">Explicitly OUT OF SCOPE</text>
+  <text x="660" y="170" font-size="11.5" fill="#0b0b0b">· autonomous needle insertion (Level 5)</text>
+  <text x="660" y="190" font-size="11.5" fill="#0b0b0b">· any action without clinician confirmation</text>
+  <text x="660" y="210" font-size="11.5" fill="#0b0b0b">· diagnosis or treatment decisions</text>
+  <text x="660" y="230" font-size="11.5" fill="#0b0b0b">· operating on patients in this phase</text>
+  <text x="660" y="256" font-size="10.5" fill="#52514e">Target autonomy: Level 4 (guide alignment)</text>
+
+  <rect x="640" y="292" width="310" height="120" rx="8" fill="#f4f4f1" stroke="#d8d7d1" stroke-width="1.2"/>
+  <text x="660" y="317" font-size="13" font-weight="bold" fill="#0b0b0b">Status of this diagram</text>
+  <text x="660" y="340" font-size="11.5" fill="#0b0b0b">No hardware exists. No safety case exists.</text>
+  <text x="660" y="359" font-size="11.5" fill="#0b0b0b">Force-controlled robotic lumbar scanning</text>
+  <text x="660" y="376" font-size="11.5" fill="#0b0b0b">has been shown by others (E3); the rest</text>
+  <text x="660" y="393" font-size="11.5" fill="#0b0b0b">of this flow has not been built by anyone.</text>
+
+  <text x="20" y="604" font-size="10" fill="#8a8983">Lumbar_MarkAny · original figure · see research/system/SYSTEM_ARCHITECTURE_AND_AUTONOMY.md · all stages E6 unless marked</text>
+</svg>

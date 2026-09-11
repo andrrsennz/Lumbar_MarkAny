@@ -41,7 +41,7 @@ constraint. Reachability and relevance were.** *(E1)*
 
 ## Q3. How much was downloaded?
 
-**1.30 GB across 3 archives, all checksummed** (`provenance/DATA_DOWNLOAD_LOG.csv`):
+**1.45 GB across 3 archives, all checksummed** (`provenance/DATA_DOWNLOAD_LOG.csv`):
 
 | Dataset | Archive | Bytes | SHA-256 (first 16) |
 |---|---|---|---|
@@ -181,7 +181,7 @@ puncture in their patients, and we are not making one.
 |---|---|
 | Candidates identified | 891 records; 420 ultrasound-relevant; 110 typed datasets |
 | Tier-0 datasets found | **2** — neither containing real human transcutaneous lumbar US |
-| Downloaded | 3 archives, 1.30 GB, all checksummed |
+| Downloaded | 3 archives, 1.45 GB, all checksummed |
 | Directly LP-relevant data held | **none** |
 | Anchor dataset | verified in depth, **1.01 TB, unreachable from this network** |
 | Redistributable pixels held | DS002 only (CC-BY); DS004/DS005 have **no licence** |

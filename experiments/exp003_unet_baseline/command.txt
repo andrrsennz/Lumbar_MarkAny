@@ -1,0 +1,1 @@
+./.venv/Scripts/python.exe scripts/experiments/train_seg.py --epochs 30 --out experiments/exp003_unet_baseline --workers 4

@@ -1,0 +1,20 @@
+captured_by      : C:\Python313\python.exe
+platform         : Windows-11-10.0.26200-SP0
+processor        : AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD
+python (capture) : 3.13.3
+python (run)     : E:\Lumbar_MarkAny\.venv\Scripts\python.exe
+
+pip freeze (run interpreter):
+filelock==3.32.3
+fsspec==2026.7.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+mpmath==1.3.0
+networkx==3.6.1
+numpy==2.5.2
+pillow==12.3.0
+setuptools==78.1.0
+sympy==1.13.1
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+typing_extensions==4.16.0

@@ -55,7 +55,7 @@ All attempts were made on 2026-09-11 from the project workstation.
 | `physionet.org` | 200 |
 | `huggingface.co` | 200 |
 | `api.datacite.org` | 200 |
-| `drive.google.com` | 200 (1.3 GB downloaded successfully) |
+| `drive.google.com` | 200 (1.30 GB of dataset archives downloaded successfully) |
 
 ### Diagnosis
 
