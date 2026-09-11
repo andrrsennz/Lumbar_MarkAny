@@ -1,0 +1,202 @@
+[
+  {
+    "name": "spinous_process",
+    "color": "#e6194b",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"},
+      {"name": "annotator_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "lamina",
+    "color": "#3cb44b",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"},
+      {"name": "side", "input_type": "select", "mutable": true,
+       "values": ["left", "right", "indeterminate"], "default_value": "indeterminate"},
+      {"name": "annotator_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "transverse_process",
+    "color": "#ffe119",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"}
+    ]
+  },
+  {
+    "name": "articular_process",
+    "color": "#f58231",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"}
+    ]
+  },
+  {
+    "name": "sacrum",
+    "color": "#911eb4",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"}
+    ]
+  },
+  {
+    "name": "posterior_complex",
+    "color": "#46f0f0",
+    "type": "polyline",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"},
+      {"name": "annotator_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "anterior_complex",
+    "color": "#f032e6",
+    "type": "polyline",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "partially_visible"}
+    ]
+  },
+  {
+    "name": "skin_surface",
+    "color": "#bcf60c",
+    "type": "polyline",
+    "attributes": []
+  },
+  {
+    "name": "interspinous_space",
+    "color": "#fabebe",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"}
+    ]
+  },
+  {
+    "name": "interlaminar_window",
+    "color": "#008080",
+    "type": "polygon",
+    "attributes": [
+      {"name": "visibility", "input_type": "select", "mutable": true,
+       "values": ["clearly_visible", "partially_visible", "inferred", "not_visible"],
+       "default_value": "clearly_visible"},
+      {"name": "annotator_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+
+  {
+    "name": "FRAME_METADATA",
+    "color": "#808080",
+    "type": "tag",
+    "attributes": [
+      {"name": "view", "input_type": "select", "mutable": true,
+       "values": ["transverse_spinous", "transverse_interspinous",
+                  "parasagittal_transverse_process", "parasagittal_articular_process",
+                  "parasagittal_oblique", "midline_sagittal", "sacral_reference",
+                  "off_axis_uninterpretable", "not_lumbar", "unknown"],
+       "default_value": "unknown"},
+      {"name": "procedural_usability", "input_type": "select", "mutable": true,
+       "values": ["usable", "partially_usable", "unusable"], "default_value": "usable"},
+      {"name": "bone_visibility", "input_type": "select", "mutable": true,
+       "values": ["clear", "partial", "absent"], "default_value": "clear"},
+      {"name": "posterior_complex_visibility", "input_type": "select", "mutable": true,
+       "values": ["clear", "partial", "absent", "not_applicable"], "default_value": "partial"},
+      {"name": "acoustic_window_quality", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"},
+      {"name": "shadow_severity", "input_type": "select", "mutable": true,
+       "values": ["none", "mild", "moderate", "severe"], "default_value": "mild"},
+      {"name": "artifact_severity", "input_type": "select", "mutable": true,
+       "values": ["none", "mild", "moderate", "severe"], "default_value": "mild"},
+      {"name": "presumed_level", "input_type": "select", "mutable": true,
+       "values": ["L1-L2", "L2-L3", "L3-L4", "L4-L5", "L5-S1", "sacrum", "uncertain"],
+       "default_value": "uncertain"},
+      {"name": "annotator_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+
+  {
+    "name": "PLANNING_preferred_access_window",
+    "color": "#0082c8",
+    "type": "polygon",
+    "attributes": [
+      {"name": "physician_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"},
+      {"name": "chosen_level", "input_type": "select", "mutable": true,
+       "values": ["L1-L2", "L2-L3", "L3-L4", "L4-L5", "L5-S1", "uncertain"],
+       "default_value": "uncertain"},
+      {"name": "reasoning", "input_type": "text", "mutable": true, "values": [""]}
+    ]
+  },
+  {
+    "name": "PLANNING_acceptable_access_window",
+    "color": "#aaffc3",
+    "type": "polygon",
+    "attributes": [
+      {"name": "physician_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "PLANNING_avoid_region",
+    "color": "#800000",
+    "type": "polygon",
+    "attributes": [
+      {"name": "reason", "input_type": "text", "mutable": true, "values": [""]}
+    ]
+  },
+  {
+    "name": "PLANNING_entry_point",
+    "color": "#000075",
+    "type": "points",
+    "attributes": [
+      {"name": "physician_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "PLANNING_insertion_axis",
+    "color": "#ffd8b1",
+    "type": "polyline",
+    "attributes": [
+      {"name": "estimated_target_depth_mm", "input_type": "number", "mutable": true,
+       "values": ["0", "200", "1"], "default_value": "0"},
+      {"name": "physician_confidence", "input_type": "select", "mutable": true,
+       "values": ["1", "2", "3", "4", "5"], "default_value": "3"}
+    ]
+  },
+  {
+    "name": "PLANNING_NO_SAFE_RECOMMENDATION",
+    "color": "#000000",
+    "type": "tag",
+    "attributes": [
+      {"name": "reason", "input_type": "select", "mutable": true,
+       "values": ["image_quality_insufficient", "anatomy_not_identifiable",
+                  "unfavourable_anatomy", "out_of_plane", "other"],
+       "default_value": "image_quality_insufficient"},
+      {"name": "comment", "input_type": "text", "mutable": true, "values": [""]}
+    ]
+  }
+]
